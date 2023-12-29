@@ -29,9 +29,9 @@ module Holidays
             {:wday => 1, :week => 2, :name => "Eight Hours Day", :regions => [:au_tas]},
             {:wday => 1, :week => 2, :name => "Labour Day", :regions => [:au_vic]},
             {:function => "march_pub_hol_sa(year)", :function_arguments => [:year], :name => "March Public Holiday", :regions => [:au_sa]}],
-      4 => [{:mday => 25, :name => "ANZAC Day", :regions => [:au_nsw, :au_sa, :au_tas, :au_vic, :au_wa]},
-            {:mday => 25, :observed => "to_monday_if_sunday(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_qld, :au_nt, :au_act, :au_sa]},
-            {:mday => 25, :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_wa, :au_act]}],
+      4 => [{:mday => 25, :name => "ANZAC Day", :regions => [:au, :au_nsw, :au_vic, :au_tas]},
+            {:mday => 25, :observed => "to_monday_if_sunday(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_qld, :au_nt, :au_sa, :au_act]},
+            {:mday => 25, :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_wa]}],
       5 => [{:function => "qld_labour_day_may(year)", :function_arguments => [:year], :name => "Labour Day", :regions => [:au_qld]},
             {:wday => 1, :week => 1, :name => "May Day", :regions => [:au_nt]},
             {:function => "may_pub_hol_sa(year)", :function_arguments => [:year], :name => "May Public Holiday", :regions => [:au_sa]}],
@@ -41,8 +41,8 @@ module Holidays
             {:mday => 6, :type => :informal, :name => "Queensland Day", :regions => [:au_qld]}],
       7 => [{:wday => 5, :week => 3, :name => "Cairns Show", :regions => [:au_qld_cairns]}],
       8 => [{:wday => 3, :week => -3, :name => "Ekka", :regions => [:au_qld_brisbane]}],
-      9 => [{:wday => 1, :week => -1, :name => "Queen's Birthday", :regions => [:au_wa]},
-            {:wday => 1, :week => -1, :name => "Family & Community Day", :regions => [:au_act]}],
+      9 => [{:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Queen's Birthday", :regions => [:au_wa]},
+            {:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Family & Community Day", :regions => [:au_act]}],
       10 => [{:function => "afl_grand_final(year)", :function_arguments => [:year], :name => "Friday before the AFL Grand Final", :regions => [:au_vic]},
             {:wday => 1, :week => 1, :name => "Labour Day", :regions => [:au_act, :au_nsw, :au_sa]},
             {:function => "qld_labour_day_october(year)", :function_arguments => [:year], :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "Labour Day", :regions => [:au_qld]},
@@ -65,6 +65,14 @@ module Holidays
         "afl_grand_final(year)" => Proc.new { |year|
 if year == 2015
   Date.civil(2015, 10, 2)
+end
+},
+
+"family_and_community_and_queens_birthday(year)" => Proc.new { |year|
+if year > 2023
+  nil
+else
+  DateCalculatorFactory.day_of_month_calculator.call(year, 9, -1, 1)
 end
 },
 

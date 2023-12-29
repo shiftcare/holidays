@@ -48,9 +48,12 @@ assert_equal "Queen's Birthday", Holidays.on(Date.civil(2014, 9, 29), :au_wa)[0]
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
 
+assert_nil Date.civil(2024, 9, 30).holidays(:au_wa)[0]
+
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2014, 9, 29), :au_act)[0][:name]
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2015, 9, 28), :au_act)[0][:name]
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2016, 9, 26), :au_act)[0][:name]
+assert_nil Date.civil(2024, 9, 30).holidays(:au_act)[0]
 
 assert_equal 'Australia Day', Holidays.on(Date.civil(2014,1,26), :au_qld)[0][:name]
 assert_equal 'Australia Day', Holidays.on(Date.civil(2014,1,27), :au_qld, :observed)[0][:name]

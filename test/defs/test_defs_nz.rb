@@ -36,5 +36,9 @@ assert_equal 'Taranaki Anniversary Day', Holidays.on(Date.civil(2017, 3, 13), :n
 assert_equal 'Taranaki Anniversary Day', Holidays.on(Date.civil(2018, 3, 12), :nz_ta, :observed)[0][:name]
 assert_equal 'Taranaki Anniversary Day', Holidays.on(Date.civil(2019, 3, 11), :nz_ta, :observed)[0][:name]
 
+# easter saturday 2024 changes
+assert_nil Holidays.on(Date.civil(2024, 3, 30), :nz)[0]
+assert_equal 'Easter Saturday', Holidays.on(Date.civil(2023, 4, 8), :nz)[0][:name]
+
   end
 end

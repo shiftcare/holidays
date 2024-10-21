@@ -79,13 +79,6 @@ module Holidays
             {:mday => 12, :type => :informal, :name => "Día de la Raza", :regions => [:mx]},
             {:wday => 1, :week => 2, :name => "Columbus Day", :regions => [:us]},
             {:mday => 31, :type => :informal, :name => "Halloween", :regions => [:us, :ca]}],
-      11 => [{:mday => 11, :name => "Remembrance Day", :regions => [:ca]},
-            {:mday => 1, :type => :informal, :name => "Todos los Santos", :regions => [:mx]},
-            {:mday => 2, :type => :informal, :name => "Los Fieles Difuntos", :regions => [:mx]},
-            {:wday => 1, :week => 3, :name => "Día de la Revolución", :regions => [:mx]},
-            {:mday => 11, :observed => "to_weekday_if_weekend(date)", :observed_arguments => [:date], :name => "Veterans Day", :regions => [:us]},
-            {:wday => 4, :week => 4, :name => "Thanksgiving", :regions => [:us]},
-            {:function => "day_after_thanksgiving(year)", :function_arguments => [:year], :name => "Day after Thanksgiving", :regions => [:us_ca]}],
       12 => [{:mday => 25, :name => "Christmas Day", :regions => [:ca]},
             {:mday => 26, :name => "Boxing Day", :regions => [:ca]},
             {:mday => 12, :type => :informal, :name => "Día de la Virgen de Guadalupe", :regions => [:mx]},
@@ -95,7 +88,13 @@ module Holidays
             {:mday => 25, :observed => "to_weekday_if_weekend(date)", :observed_arguments => [:date], :name => "Christmas Day", :regions => [:us]}],
       4 => [{:mday => 30, :type => :informal, :name => "Día del Niño", :regions => [:mx]},
             {:mday => 1, :type => :informal, :name => "April Fool's Day", :regions => [:us, :ca]},
-            {:mday => 22, :type => :informal, :name => "Earth Day", :regions => [:us, :ca]}]
+            {:mday => 22, :type => :informal, :name => "Earth Day", :regions => [:us, :ca]}],
+      11 => [{:mday => 1, :type => :informal, :name => "Todos los Santos", :regions => [:mx]},
+            {:mday => 2, :type => :informal, :name => "Los Fieles Difuntos", :regions => [:mx]},
+            {:wday => 1, :week => 3, :name => "Día de la Revolución", :regions => [:mx]},
+            {:mday => 11, :observed => "to_weekday_if_weekend(date)", :observed_arguments => [:date], :name => "Veterans Day", :regions => [:us]},
+            {:wday => 4, :week => 4, :name => "Thanksgiving", :regions => [:us]},
+            {:function => "day_after_thanksgiving(year)", :function_arguments => [:year], :name => "Day after Thanksgiving", :regions => [:us_ca]}]
       }
     end
 

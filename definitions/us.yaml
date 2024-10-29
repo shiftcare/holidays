@@ -56,10 +56,6 @@ months:
     regions: [us]
     wday: 1
   11:
-  - name: Veterans Day
-    regions: [us]
-    mday: 11
-    observed: to_weekday_if_weekend(date)
   - name: Thanksgiving
     week: 4
     regions: [us]

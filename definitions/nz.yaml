@@ -35,10 +35,6 @@ months:
     regions: [nz_we]
     mday: 22
     observed: closest_monday(date)
-  - name: Auckland Anniversary Day
-    regions: [nz_ak]
-    mday: 29
-    observed: closest_monday(date)
   - name: Northland Anniversary Day
     regions: [nz_nl]
     mday: 29
@@ -72,6 +68,9 @@ months:
     regions: [nz]
     week: 1
     wday: 1
+  - name: Matariki
+    regions: [nz]
+    mday: 20
   9:
   - name: Dominion Day
     regions: [nz_sc]

@@ -54,9 +54,9 @@ months:
     regions: [au_sa]
     function: march_pub_hol_sa(year)
   4:
-  - name: ANZAC Day
-    regions: [au]
-    mday: 25
+  - name: Easter Sunday
+    regions: [au_nt, au_qld, au_sa, au_wa]
+    mday: 20
   - name: ANZAC Day
     regions: [au_nsw, au_vic, au_tas]
     mday: 25
@@ -91,6 +91,9 @@ months:
   - name: Queen's Birthday
     regions: [au_qld]
     function: qld_queens_birthday_june(year)
+  - name: Reconciliation Day
+    regions: [au_nsw]
+    mday: 2
   - name: Queensland Day
     regions: [au_qld]
     mday: 6
@@ -105,6 +108,9 @@ months:
     regions: [au_qld_brisbane]
     week: -3
     wday: 3
+  - name: Picnic Day
+    regions: [au_nt]
+    mday: 4
   9:
   - name: Queen's Birthday
     regions: [au_wa]

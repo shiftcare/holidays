@@ -13,7 +13,7 @@ module Holidays
   # All the definitions are available at https://github.com/holidays/holidays
   module AU # :nodoc:
     def self.defined_regions
-      [:au, :au_nsw, :au_vic, :au_qld, :au_nt, :au_act, :au_sa, :au_tas_south, :au_wa, :au_tas, :au_qld_cairns, :au_qld_brisbane, :au_tas_north, :au_vic_melbourne]
+      [:au, :au_nsw, :au_vic, :au_qld, :au_nt, :au_act, :au_sa, :au_wa, :au_tas_south, :au_tas, :au_qld_cairns, :au_qld_brisbane, :au_tas_north, :au_vic_melbourne]
     end
 
     def self.holidays_by_month
@@ -21,6 +21,7 @@ module Holidays
               0 => [{:function => "easter(year)", :function_arguments => [:year], :function_modifier => -2, :name => "Good Friday", :regions => [:au]},
             {:function => "easter(year)", :function_arguments => [:year], :function_modifier => -1, :name => "Easter Saturday", :regions => [:au_nsw, :au_vic, :au_qld, :au_nt, :au_act, :au_sa]},
             {:function => "easter(year)", :function_arguments => [:year], :name => "Easter Sunday", :regions => [:au_nsw, :au_vic]},
+            {:function => "easter_from_2025(year)", :function_arguments => [:year], :name => "Easter Sunday", :regions => [:au_nt, :au_qld, :au_sa, :au_wa]},
             {:function => "easter(year)", :function_arguments => [:year], :function_modifier => 1, :name => "Easter Monday", :regions => [:au]}],
       1 => [{:mday => 1, :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "New Year's Day", :regions => [:au]},
             {:mday => 26, :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "Australia Day", :regions => [:au]}],
@@ -30,7 +31,7 @@ module Holidays
             {:wday => 1, :week => 2, :name => "Labour Day", :regions => [:au_vic]},
             {:function => "march_pub_hol_sa(year)", :function_arguments => [:year], :name => "March Public Holiday", :regions => [:au_sa]}],
       4 => [{:mday => 20, :name => "Easter Sunday", :regions => [:au_nt, :au_qld, :au_sa, :au_wa]},
-            {:mday => 25, :name => "ANZAC Day", :regions => [:au_nsw, :au_vic, :au_tas]},
+            {:mday => 25, :name => "ANZAC Day", :regions => [:au]},
             {:mday => 25, :observed => "to_monday_if_sunday(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_qld, :au_nt, :au_sa, :au_act]},
             {:mday => 25, :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_wa]}],
       5 => [{:function => "qld_labour_day_may(year)", :function_arguments => [:year], :name => "Labour Day", :regions => [:au_qld]},
@@ -42,7 +43,7 @@ module Holidays
             {:mday => 6, :type => :informal, :name => "Queensland Day", :regions => [:au_qld]}],
       7 => [{:wday => 5, :week => 3, :name => "Cairns Show", :regions => [:au_qld_cairns]}],
       8 => [{:wday => 3, :week => -3, :name => "Ekka", :regions => [:au_qld_brisbane]},
-            {:mday => 4, :name => "Picnic Day", :regions => [:au_nt]}],
+            {:function => "picnic_day_from_2025(year)", :function_arguments => [:year], :name => "Picnic Day", :regions => [:au_nt]}],
       9 => [{:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Queen's Birthday", :regions => [:au_wa]},
             {:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Family & Community Day", :regions => [:au_act]}],
       10 => [{:function => "afl_grand_final(year)", :function_arguments => [:year], :name => "Friday before the AFL Grand Final", :regions => [:au_vic]},
@@ -70,11 +71,23 @@ if year == 2015
 end
 },
 
+"easter_from_2025(year)" => Proc.new { |year|
+if year >= 2025
+  easter(year)
+end
+},
+
 "family_and_community_and_queens_birthday(year)" => Proc.new { |year|
 if year > 2023
   nil
 else
   DateCalculatorFactory.day_of_month_calculator.call(year, 9, -1, 1)
+end
+},
+
+"picnic_day_from_2025(year)" => Proc.new { |year|
+if year >= 2025
+  Date.civil(year, 8, 4)
 end
 },
 

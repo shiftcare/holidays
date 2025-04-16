@@ -61,6 +61,9 @@ months:
     regions: [au]
     mday: 25
   - name: ANZAC Day
+    regions: [au_nsw, au_vic, au_tas]
+    mday: 25
+  - name: ANZAC Day
     regions: [au_qld, au_nt, au_sa, au_act]
     mday: 25
     observed: to_monday_if_sunday(date)

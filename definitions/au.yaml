@@ -57,9 +57,6 @@ months:
     regions: [au_sa]
     function: march_pub_hol_sa(year)
   4:
-  - name: Easter Sunday
-    regions: [au_nt, au_qld, au_sa, au_wa]
-    mday: 20
   - name: ANZAC Day
     regions: [au]
     mday: 25
@@ -183,7 +180,7 @@ methods:
     arguments: year
     source: |
       if year >= 2025
-        easter(year)
+        DateCalculatorFactory::Easter::Gregorian.easter_calculator.calculate_easter_for(year)
       end
   family_and_community_and_queens_birthday:
     arguments: year

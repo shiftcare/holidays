@@ -30,8 +30,7 @@ module Holidays
             {:wday => 1, :week => 2, :name => "Eight Hours Day", :regions => [:au_tas]},
             {:wday => 1, :week => 2, :name => "Labour Day", :regions => [:au_vic]},
             {:function => "march_pub_hol_sa(year)", :function_arguments => [:year], :name => "March Public Holiday", :regions => [:au_sa]}],
-      4 => [{:mday => 20, :name => "Easter Sunday", :regions => [:au_nt, :au_qld, :au_sa, :au_wa]},
-            {:mday => 25, :name => "ANZAC Day", :regions => [:au]},
+      4 => [{:mday => 25, :name => "ANZAC Day", :regions => [:au]},
             {:mday => 25, :observed => "to_monday_if_sunday(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_qld, :au_nt, :au_sa, :au_act]},
             {:mday => 25, :observed => "to_monday_if_weekend(date)", :observed_arguments => [:date], :name => "ANZAC Day", :regions => [:au_wa]}],
       5 => [{:function => "qld_labour_day_may(year)", :function_arguments => [:year], :name => "Labour Day", :regions => [:au_qld]},
@@ -73,7 +72,7 @@ end
 
 "easter_from_2025(year)" => Proc.new { |year|
 if year >= 2025
-  easter(year)
+  DateCalculatorFactory::Easter::Gregorian.easter_calculator.calculate_easter_for(year)
 end
 },
 

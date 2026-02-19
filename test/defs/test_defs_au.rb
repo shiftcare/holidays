@@ -94,8 +94,9 @@ assert_equal "ANZAC Day", Date.civil(2015, 4, 25).holidays(:au_wa)[0][:name]
 assert_equal [], Date.civil(2015, 4, 27).holidays(:au_qld, :observed)
 assert_equal "ANZAC Day", Date.civil(2015, 4, 27).holidays(:au_wa, :observed)[0][:name]
 
-# ANZAC Day 2026 - NSW observes on Monday April 27 (one-off, 2026 only)
+# ANZAC Day 2026-2027 - NSW observes on Monday when ANZAC Day falls on weekend
 assert_equal "ANZAC Day", Date.civil(2026, 4, 27).holidays(:au_nsw, :observed)[0][:name]
+assert_equal "ANZAC Day", Date.civil(2027, 4, 26).holidays(:au_nsw, :observed)[0][:name]
 
 # BOXING DAY - QLD observes weekend and monday
 assert_equal "Boxing Day", Date.civil(2015, 12, 26).holidays(:au_qld)[0][:name]

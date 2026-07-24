@@ -87,7 +87,7 @@ end
 
 "picnic_day_from_2025(year)" => Proc.new { |year|
 if year >= 2025
-  Date.civil(year, 8, 4)
+  DateCalculatorFactory.day_of_month_calculator.call(year, 8, :first, :monday)
 end
 },
 

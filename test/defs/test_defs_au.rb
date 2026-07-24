@@ -94,6 +94,16 @@ assert_equal "ANZAC Day", Date.civil(2015, 4, 25).holidays(:au_wa)[0][:name]
 assert_equal [], Date.civil(2015, 4, 27).holidays(:au_qld, :observed)
 assert_equal "ANZAC Day", Date.civil(2015, 4, 27).holidays(:au_wa, :observed)[0][:name]
 
+# ANZAC Day 2026-2027 - NSW observes on Monday when ANZAC Day falls on weekend
+assert_equal "ANZAC Day", Date.civil(2026, 4, 27).holidays(:au_nsw, :observed)[0][:name]
+assert_equal "ANZAC Day", Date.civil(2027, 4, 26).holidays(:au_nsw, :observed)[0][:name]
+
+# NT Picnic Day - first Monday of August (not a fixed date). Regression: DEV-30999
+assert_equal "Picnic Day", Date.civil(2025, 8, 4).holidays(:au_nt)[0][:name]
+assert_equal "Picnic Day", Date.civil(2026, 8, 3).holidays(:au_nt)[0][:name]
+assert_equal "Picnic Day", Date.civil(2027, 8, 2).holidays(:au_nt)[0][:name]
+assert_equal [], Date.civil(2026, 8, 4).holidays(:au_nt)
+
 # BOXING DAY - QLD observes weekend and monday
 assert_equal "Boxing Day", Date.civil(2015, 12, 26).holidays(:au_qld)[0][:name]
 assert_equal "Boxing Day", Date.civil(2015, 12, 28).holidays(:au_qld, :observed)[0][:name]

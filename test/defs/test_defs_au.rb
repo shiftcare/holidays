@@ -44,11 +44,13 @@ assert_equal "Queen's Birthday", Holidays.on(Date.civil(2013,6,10), :au_qld)[0][
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015,6,8), :au_qld)[0][:name]
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016,10,3), :au_qld)[0][:name]
 
-assert_equal "Queen's Birthday", Holidays.on(Date.civil(2014, 9, 29), :au_wa)[0][:name]
-assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
-assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
+assert_equal "King's Birthday", Holidays.on(Date.civil(2014, 9, 29), :au_wa)[0][:name]
+assert_equal "King's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
+assert_equal "King's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
 
-assert_nil Date.civil(2024, 9, 30).holidays(:au_wa)[0]
+assert_equal "King's Birthday", Date.civil(2024, 9, 30).holidays(:au_wa)[0][:name]
+assert_equal "King's Birthday", Date.civil(2025, 9, 29).holidays(:au_wa)[0][:name]
+assert_equal "King's Birthday", Date.civil(2026, 9, 28).holidays(:au_wa)[0][:name]
 
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2014, 9, 29), :au_act)[0][:name]
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2015, 9, 28), :au_act)[0][:name]

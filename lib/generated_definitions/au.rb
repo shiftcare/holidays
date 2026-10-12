@@ -44,7 +44,7 @@ module Holidays
       7 => [{:wday => 5, :week => 3, :name => "Cairns Show", :regions => [:au_qld_cairns]}],
       8 => [{:wday => 3, :week => -3, :name => "Ekka", :regions => [:au_qld_brisbane]},
             {:function => "picnic_day_from_2025(year)", :function_arguments => [:year], :name => "Picnic Day", :regions => [:au_nt]}],
-      9 => [{:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Queen's Birthday", :regions => [:au_wa]},
+      9 => [{:wday => 1, :week => -1, :name => "King's Birthday", :regions => [:au_wa]},
             {:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Family & Community Day", :regions => [:au_act]}],
       10 => [{:function => "afl_grand_final(year)", :function_arguments => [:year], :name => "Friday before the AFL Grand Final", :regions => [:au_vic]},
             {:wday => 1, :week => 1, :name => "Labour Day", :regions => [:au_act, :au_nsw, :au_sa]},

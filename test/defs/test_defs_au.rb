@@ -44,9 +44,13 @@ assert_equal "Queen's Birthday", Holidays.on(Date.civil(2013,6,10), :au_qld)[0][
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015,6,8), :au_qld)[0][:name]
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016,10,3), :au_qld)[0][:name]
 
-assert_equal "King's Birthday", Holidays.on(Date.civil(2014, 9, 29), :au_wa)[0][:name]
-assert_equal "King's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
-assert_equal "King's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
+assert_equal "Queen's Birthday", Holidays.on(Date.civil(2014, 9, 29), :au_wa)[0][:name]
+assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
+assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
+
+# Rename boundary: Queen Elizabeth II died 8 September 2022; WA relabelled 2023 onwards.
+assert_equal "Queen's Birthday", Date.civil(2022, 9, 26).holidays(:au_wa)[0][:name]
+assert_equal "King's Birthday", Date.civil(2023, 9, 25).holidays(:au_wa)[0][:name]
 
 assert_equal "King's Birthday", Date.civil(2024, 9, 30).holidays(:au_wa)[0][:name]
 assert_equal "King's Birthday", Date.civil(2025, 9, 29).holidays(:au_wa)[0][:name]

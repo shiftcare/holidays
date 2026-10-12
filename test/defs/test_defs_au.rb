@@ -52,7 +52,10 @@ assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0]
 assert_equal "Queen's Birthday", Date.civil(2022, 9, 26).holidays(:au_wa)[0][:name]
 assert_equal "King's Birthday", Date.civil(2023, 9, 25).holidays(:au_wa)[0][:name]
 
-assert_equal "King's Birthday", Date.civil(2024, 9, 30).holidays(:au_wa)[0][:name]
+# WA 2024 was proclaimed as Monday 23 Sep (not the default last-Monday rule).
+# Guard against the old rule returning 2024-09-30.
+assert_equal "King's Birthday", Date.civil(2024, 9, 23).holidays(:au_wa)[0][:name]
+assert_nil Date.civil(2024, 9, 30).holidays(:au_wa)[0]
 assert_equal "King's Birthday", Date.civil(2025, 9, 29).holidays(:au_wa)[0][:name]
 assert_equal "King's Birthday", Date.civil(2026, 9, 28).holidays(:au_wa)[0][:name]
 

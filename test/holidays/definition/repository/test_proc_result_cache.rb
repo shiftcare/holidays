@@ -68,6 +68,21 @@ class ProcResultCacheRepoTests < Test::Unit::TestCase
     assert_equal(Date.civil(2016, 1, 6), @subject.lookup(function, date, modifier))
   end
 
+  def test_build_proc_key_uses_iso8601_for_date_arguments
+    # This test ensures Date arguments are formatted using iso8601 rather than
+    # implicit to_s, which avoids Ruby 3.1+ deprecation warnings about
+    # Date#to_s without a format argument.
+    function = lambda { |date| date + 1 }
+    date = Date.civil(2016, 1, 15)
+
+    # Call lookup twice with the same date - should hit the cache
+    result1 = @subject.lookup(function, date)
+    result2 = @subject.lookup(function, date)
+
+    assert_equal(result1, result2)
+    assert_equal(Date.civil(2016, 1, 16), result1)
+  end
+
   def test_lookup_raises_error_if_function_argument_is_not_valid
     function = lambda { |year| Date.civil(year, 2, 1) - 1 }
     function_argument = "2015"

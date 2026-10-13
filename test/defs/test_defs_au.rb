@@ -48,7 +48,16 @@ assert_equal "Queen's Birthday", Holidays.on(Date.civil(2014, 9, 29), :au_wa)[0]
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
 assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
 
+# Rename boundary: Queen Elizabeth II died 8 September 2022; WA relabelled 2023 onwards.
+assert_equal "Queen's Birthday", Date.civil(2022, 9, 26).holidays(:au_wa)[0][:name]
+assert_equal "King's Birthday", Date.civil(2023, 9, 25).holidays(:au_wa)[0][:name]
+
+# WA 2024 was proclaimed as Monday 23 Sep (not the default last-Monday rule).
+# Guard against the old rule returning 2024-09-30.
+assert_equal "King's Birthday", Date.civil(2024, 9, 23).holidays(:au_wa)[0][:name]
 assert_nil Date.civil(2024, 9, 30).holidays(:au_wa)[0]
+assert_equal "King's Birthday", Date.civil(2025, 9, 29).holidays(:au_wa)[0][:name]
+assert_equal "King's Birthday", Date.civil(2026, 9, 28).holidays(:au_wa)[0][:name]
 
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2014, 9, 29), :au_act)[0][:name]
 assert_equal "Family & Community Day", Holidays.on(Date.civil(2015, 9, 28), :au_act)[0][:name]
@@ -93,6 +102,16 @@ assert_equal "ANZAC Day", Date.civil(2015, 4, 25).holidays(:au_qld)[0][:name]
 assert_equal "ANZAC Day", Date.civil(2015, 4, 25).holidays(:au_wa)[0][:name]
 assert_equal [], Date.civil(2015, 4, 27).holidays(:au_qld, :observed)
 assert_equal "ANZAC Day", Date.civil(2015, 4, 27).holidays(:au_wa, :observed)[0][:name]
+
+# ANZAC Day 2026-2027 - NSW observes on Monday when ANZAC Day falls on weekend
+assert_equal "ANZAC Day", Date.civil(2026, 4, 27).holidays(:au_nsw, :observed)[0][:name]
+assert_equal "ANZAC Day", Date.civil(2027, 4, 26).holidays(:au_nsw, :observed)[0][:name]
+
+# NT Picnic Day - first Monday of August (not a fixed date). Regression: DEV-30999
+assert_equal "Picnic Day", Date.civil(2025, 8, 4).holidays(:au_nt)[0][:name]
+assert_equal "Picnic Day", Date.civil(2026, 8, 3).holidays(:au_nt)[0][:name]
+assert_equal "Picnic Day", Date.civil(2027, 8, 2).holidays(:au_nt)[0][:name]
+assert_equal [], Date.civil(2026, 8, 4).holidays(:au_nt)
 
 # BOXING DAY - QLD observes weekend and monday
 assert_equal "Boxing Day", Date.civil(2015, 12, 26).holidays(:au_qld)[0][:name]

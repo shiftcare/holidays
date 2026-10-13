@@ -44,7 +44,8 @@ module Holidays
       7 => [{:wday => 5, :week => 3, :name => "Cairns Show", :regions => [:au_qld_cairns]}],
       8 => [{:wday => 3, :week => -3, :name => "Ekka", :regions => [:au_qld_brisbane]},
             {:function => "picnic_day_from_2025(year)", :function_arguments => [:year], :name => "Picnic Day", :regions => [:au_nt]}],
-      9 => [{:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Queen's Birthday", :regions => [:au_wa]},
+      9 => [{:wday => 1, :week => -1,  :year_ranges => [{:before => 2022}],:name => "Queen's Birthday", :regions => [:au_wa]},
+            {:function => "wa_kings_birthday(year)", :function_arguments => [:year],  :year_ranges => [{:after => 2023}],:name => "King's Birthday", :regions => [:au_wa]},
             {:function => "family_and_community_and_queens_birthday(year)", :function_arguments => [:year], :name => "Family & Community Day", :regions => [:au_act]}],
       10 => [{:function => "afl_grand_final(year)", :function_arguments => [:year], :name => "Friday before the AFL Grand Final", :regions => [:au_vic]},
             {:wday => 1, :week => 1, :name => "Labour Day", :regions => [:au_act, :au_nsw, :au_sa]},
@@ -80,6 +81,14 @@ end
 "family_and_community_and_queens_birthday(year)" => Proc.new { |year|
 if year > 2023
   nil
+else
+  DateCalculatorFactory.day_of_month_calculator.call(year, 9, -1, 1)
+end
+},
+
+"wa_kings_birthday(year)" => Proc.new { |year|
+if year == 2024
+  23
 else
   DateCalculatorFactory.day_of_month_calculator.call(year, 9, -1, 1)
 end

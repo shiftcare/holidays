@@ -120,7 +120,15 @@ months:
   9:
   - name: Queen's Birthday
     regions: [au_wa]
-    function: family_and_community_and_queens_birthday(year)
+    week: -1
+    wday: 1
+    year_ranges:
+      - before: 2022
+  - name: King's Birthday
+    regions: [au_wa]
+    function: wa_kings_birthday(year)
+    year_ranges:
+      - after: 2023
   - name: "Family & Community Day"
     regions: [au_act]
     function: family_and_community_and_queens_birthday(year)
@@ -196,6 +204,18 @@ methods:
     source: |
       if year > 2023
         nil
+      else
+        DateCalculatorFactory.day_of_month_calculator.call(year, 9, -1, 1)
+      end
+  wa_kings_birthday:
+    # WA's "Day to be observed for the celebration of the Sovereign's Birthday"
+    # is set each year by the Governor's proclamation. The default is the last
+    # Monday of September, but 2024 was proclaimed as Monday 23 September:
+    # https://www.wa.gov.au/government/announcements/kings-birthday-public-holiday-information-2024
+    arguments: year
+    source: |
+      if year == 2024
+        23
       else
         DateCalculatorFactory.day_of_month_calculator.call(year, 9, -1, 1)
       end
@@ -318,7 +338,16 @@ tests: |
     assert_equal "Queen's Birthday", Holidays.on(Date.civil(2015, 9, 28), :au_wa)[0][:name]
     assert_equal "Queen's Birthday", Holidays.on(Date.civil(2016, 9, 26), :au_wa)[0][:name]
 
+    # Rename boundary: Queen Elizabeth II died 8 September 2022; WA relabelled 2023 onwards.
+    assert_equal "Queen's Birthday", Date.civil(2022, 9, 26).holidays(:au_wa)[0][:name]
+    assert_equal "King's Birthday", Date.civil(2023, 9, 25).holidays(:au_wa)[0][:name]
+
+    # WA 2024 was proclaimed as Monday 23 Sep (not the default last-Monday rule).
+    # Guard against the old rule returning 2024-09-30.
+    assert_equal "King's Birthday", Date.civil(2024, 9, 23).holidays(:au_wa)[0][:name]
     assert_nil Date.civil(2024, 9, 30).holidays(:au_wa)[0]
+    assert_equal "King's Birthday", Date.civil(2025, 9, 29).holidays(:au_wa)[0][:name]
+    assert_equal "King's Birthday", Date.civil(2026, 9, 28).holidays(:au_wa)[0][:name]
 
     assert_equal "Family & Community Day", Holidays.on(Date.civil(2014, 9, 29), :au_act)[0][:name]
     assert_equal "Family & Community Day", Holidays.on(Date.civil(2015, 9, 28), :au_act)[0][:name]
